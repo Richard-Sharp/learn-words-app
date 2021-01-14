@@ -1,25 +1,50 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {PureComponent} from 'react';
+import HomePage from './Components/Pages/HomePage/HomePage';
+import LoginPage from './Components/Pages/LoginPage/LoginPage';
+import {Spin} from 'antd';
+import FirebaseContext from "./Context/FirebaseContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends PureComponent {
+	state = {
+		user: null
+	}
+
+	componentDidMount() {
+		console.log('###: ', this.context);
+
+		const { auth, setUserId } = this.context;
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				setUserId(user.uid);
+				this.setState({user});
+			} else {
+				setUserId(null);
+				this.setState({user: false});
+			}
+		})
+	}
+
+	render() {
+		const {user} = this.state;
+		if (user === null) {
+			return (
+					<div className="spinner">
+						<Spin size="large"/>
+					</div>
+			);
+		}
+
+		return (
+				<>
+					<div className="App">
+						{user ? <HomePage user={user}/> : <LoginPage/>}
+					</div>
+				</>
+		)
+	}
 }
 
+App.contextType = FirebaseContext;
 export default App;
