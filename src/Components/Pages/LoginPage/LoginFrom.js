@@ -3,7 +3,7 @@ import {Form, Input, Button} from 'antd';
 import style from "./LoginPage.module.css";
 
 
-const LoginForm = ({ logInUser }) => {
+const LoginForm = (props) => {
 
 const layout = {
 	labelCol: {span: 6}, // def: 8
@@ -14,10 +14,11 @@ const tailLayout = {
 };
 
 const onFinish = ({email, password}) => {
-
-	logInUser (email, password)
+	const { history } = props;
+	props.logInUser (email, password)
 			.then(res => {
 				console.log("###: user: ", res);
+				history.push("/")
 			})
 };
 

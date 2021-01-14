@@ -2,9 +2,11 @@ import './App.css';
 import React, {PureComponent} from 'react';
 import HomePage from './Components/Pages/HomePage/HomePage';
 import LoginPage from './Components/Pages/LoginPage/LoginPage';
-import {Spin} from 'antd';
+import {Layout, Spin, Menu} from 'antd';
 import FirebaseContext from "./Context/FirebaseContext";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Link, NavLink, Route} from "react-router-dom";
+
+const { Header } = Layout;
 
 
 class App extends PureComponent {
@@ -37,9 +39,31 @@ class App extends PureComponent {
 
 		return (
 				<BrowserRouter>
-					<Route path="/" exact component={HomePage}/>
 					<Route path="/login" component={LoginPage}/>
-					<Route path="/settings" render={() => <h1>Settings...</h1>}/>
+					<Route render={(props) => {
+						const {history: {push}} = props;
+						return (
+								<Layout>
+									<Header>
+										<Menu theme="dark" mode="horizontal">
+											<Menu.Item key="1">
+												<Link to="/">Home</Link>
+											</Menu.Item>
+											<Menu.Item key="2">
+												<Link to="/about">About</Link>
+											</Menu.Item>
+											<Menu.Item key="3" onClick={() => push("/contact")}>Contact
+												{/*<NavLink to="/contact">Contact</NavLink>*/}
+											</Menu.Item>
+										</Menu>
+									</Header>
+								</Layout>
+						)
+					}}/>
+
+					<Route path="/" exact component={HomePage}/>
+					<Route path="/about" render={() => <h1>About app...</h1>}/>
+					<Route path="/contact" render={() => <h1>Contact me...</h1>}/>
 
 
 					{/*<div className="App">*/}
