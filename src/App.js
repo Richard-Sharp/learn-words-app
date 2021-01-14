@@ -4,6 +4,7 @@ import HomePage from './Components/Pages/HomePage/HomePage';
 import LoginPage from './Components/Pages/LoginPage/LoginPage';
 import {Spin} from 'antd';
 import FirebaseContext from "./Context/FirebaseContext";
+import {BrowserRouter, Route} from "react-router-dom";
 
 
 class App extends PureComponent {
@@ -12,9 +13,7 @@ class App extends PureComponent {
 	}
 
 	componentDidMount() {
-		console.log('###: ', this.context);
-
-		const { auth, setUserId } = this.context;
+		const {auth, setUserId} = this.context;
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setUserId(user.uid);
@@ -37,11 +36,16 @@ class App extends PureComponent {
 		}
 
 		return (
-				<>
-					<div className="App">
-						{user ? <HomePage user={user}/> : <LoginPage/>}
-					</div>
-				</>
+				<BrowserRouter>
+					<Route path="/" exact component={HomePage}/>
+					<Route path="/login" component={LoginPage}/>
+					<Route path="/settings" render={() => <h1>Settings...</h1>}/>
+
+
+					{/*<div className="App">*/}
+					{/*{user ? <HomePage user={user}/> : <LoginPage/>}*/}
+					{/*</div>*/}
+				</BrowserRouter>
 		)
 	}
 }

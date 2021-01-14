@@ -4,6 +4,7 @@ import style from './Card/Card.module.css';
 import {Input} from 'antd';
 import getTranslateWord from "../../DAL/translateWord";
 import FirebaseContext from "../../Context/FirebaseContext";
+import {Spin} from 'antd';
 
 
 const {Search} = Input;
@@ -56,6 +57,7 @@ class CardList extends PureComponent {
 	render() {
 		const {wordsList, onDeletedItem} = this.props;
 		const {inputValue, label, isLoading, wordTranslate} = this.state;
+
 		return (
 				<>
 					<div className={style.form}>
@@ -86,7 +88,11 @@ class CardList extends PureComponent {
 					</div>
 
 					<div className={style.cover}>
-						{wordsList.map((el) => (
+						{wordsList.length === 0
+								? <div>
+									<Spin size="large"/>
+						</div>
+								: wordsList.map((el) => (
 								<Card key={el.id} eng={el.eng} rus={el.rus}
 											onDeleted={() => {
 												onDeletedItem(el.id)

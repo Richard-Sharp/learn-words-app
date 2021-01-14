@@ -21,6 +21,10 @@
     background: #c7c7c7 no-repeat fixed center center;
 }
 
+.cover div {
+    margin: 0 auto;
+}
+
 .card {
     font-size: 18px;
     text-align: center;
