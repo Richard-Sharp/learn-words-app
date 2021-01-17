@@ -12,15 +12,11 @@ const firebaseConfig = {
 	appId: "1:933868855165:web:40f76f52aa89f0fbba7614"
 };
 
-
-
-
 class Firebase {
 	constructor() {
 		if (!firebase.apps.length) {
 			firebase.initializeApp(firebaseConfig);
-			}
-
+		}
 		this.auth = firebase.auth();
 		this.database = firebase.database();
 		this.userId = null;
@@ -33,9 +29,6 @@ class Firebase {
 	getUserCurrentPage = (id) => this.database.ref(`/cards/${this.userId}/${id}`)
 }
 
-
-
 // export const fire = firebase;
 // export const database = firebase.database();
-
 export default Firebase;

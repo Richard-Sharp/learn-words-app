@@ -2,12 +2,25 @@ import React, {Component} from 'react';
 import s from './Card.module.css';
 import cn from 'classnames'
 import {CheckSquareOutlined, DeleteOutlined} from "@ant-design/icons/es/icons/index";
+import {withRouter} from "react-router-dom";
 
 
 class Card extends Component {
 	state = {
 		done: false,
 		isRemembered: false
+	};
+
+	componentDidMount() {
+		console.log('card props', this.props);
+		const { match: {params}, index } = this.props;
+		if (index === +params.id) {
+			console.log('######');
+			this.setState({
+				done: params.isDone
+
+			})
+		}
 	}
 
 	onCardClick = () => {
@@ -35,7 +48,6 @@ class Card extends Component {
 		const {eng, rus} = this.props;
 		const {done, isRemembered} = this.state;
 
-
 		return (
 				<div className={s.root}>
 					<div className={cn(s.card, {
@@ -59,10 +71,9 @@ class Card extends Component {
 					<div className={s.icons}>
 						<DeleteOutlined onClick={this.onDeletedClick}/>
 					</div>
-
 				</div>
 		);
 	}
 }
 
-export default Card;
+export default withRouter(Card);

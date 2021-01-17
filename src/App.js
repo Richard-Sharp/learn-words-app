@@ -4,7 +4,7 @@ import HomePage from './Components/Pages/HomePage/HomePage';
 import LoginPage from './Components/Pages/LoginPage/LoginPage';
 import {Layout, Spin, Menu} from 'antd';
 import FirebaseContext from "./Context/FirebaseContext";
-import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import {PrivateRoute} from "./utils/privateRoute";
 import CurrentWord from "./Components/Pages/CurrentWord/CurrentWord";
 import FooterBlock from "./Components/FooterBlock/FooterBlock";
@@ -47,15 +47,13 @@ class App extends PureComponent {
 		}
 
 		return (
-				<BrowserRouter>
+				<>
 					<Switch>
 					<Route path="/login" exact component={LoginPage}/>
 					<Route render={(props) => {
 						const {history: {push}} = props;
 						return (
 								<Layout>
-
-
 									<Header>
 										<Menu theme="dark" mode="horizontal">
 											<Menu.Item key="1">
@@ -68,16 +66,16 @@ class App extends PureComponent {
 												{/*<NavLink to="/contact">Contact</NavLink>*/}
 											</Menu.Item>
 											<Menu.Item key="4">
-												<div className="logout" onClick={this.logOutUser}>LogOut</div>
+												<div className="logout"
+														 onClick={this.logOutUser}>LogOut</div>
 											</Menu.Item>
 										</Menu>
 									</Header>
 
-
-
 									<Content>
 										<Switch>
 										<PrivateRoute path="/" exact component={HomePage}/>
+										<PrivateRoute path="/home/:id?/:isDone?" component={HomePage}/>
 										<PrivateRoute path="/word/:id?" component={CurrentWord}/>
 										<Route path="/about" render={() => <h1>About app...</h1>}/>
 										<Route path="/contact" render={() => <h1>Contact me...</h1>}/>
@@ -86,11 +84,10 @@ class App extends PureComponent {
 									</Content>
 									<FooterBlock/>
 								</Layout>
-
 						)
 					}}/>
 					</Switch>
-				</BrowserRouter>
+				</>
 		)
 	}
 }

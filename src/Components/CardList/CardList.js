@@ -92,8 +92,8 @@ class CardList extends PureComponent {
 								? <div>
 									<Spin size="large"/>
 						</div>
-								: wordsList.map((el) => (
-								<Card key={el.id} eng={el.eng} rus={el.rus}
+								: wordsList.map((el, index) => (
+								<Card key={el.id} eng={el.eng} rus={el.rus} index={index}
 											onDeleted={() => {
 												onDeletedItem(el.id)
 											}}/>
