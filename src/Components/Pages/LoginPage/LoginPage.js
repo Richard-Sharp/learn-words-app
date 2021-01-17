@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import Footer from "../../Footer/Footer";
 import {Layout} from 'antd';
 import style from "./LoginPage.module.css";
 import FirebaseContext from "../../../Context/FirebaseContext";
@@ -21,7 +20,6 @@ class LoginPage extends PureComponent {
 							</div>
 						</Content>
 					</Layout>
-					<Footer/>
 				</>
 		)
 	}

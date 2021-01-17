@@ -4,16 +4,18 @@ import HomePage from './Components/Pages/HomePage/HomePage';
 import LoginPage from './Components/Pages/LoginPage/LoginPage';
 import {Layout, Spin, Menu} from 'antd';
 import FirebaseContext from "./Context/FirebaseContext";
-import {BrowserRouter, Link, NavLink, Route} from "react-router-dom";
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import {PrivateRoute} from "./utils/privateRoute";
+import CurrentWord from "./Components/Pages/CurrentWord/CurrentWord";
+import FooterBlock from "./Components/FooterBlock/FooterBlock";
 
-const { Header } = Layout;
+const { Header, Content } = Layout;
 
 
 class App extends PureComponent {
 	state = {
 		user: null
-	}
+	};
 
 	componentDidMount() {
 		const {auth, setUserId} = this.context;
@@ -29,6 +31,10 @@ class App extends PureComponent {
 			}
 		});
 	}
+	logOutUser = () => {
+		const {loginOut} = this.context;
+		loginOut();
+	};
 
 	render() {
 		const {user} = this.state;
@@ -42,11 +48,14 @@ class App extends PureComponent {
 
 		return (
 				<BrowserRouter>
-					<Route path="/login" component={LoginPage}/>
+					<Switch>
+					<Route path="/login" exact component={LoginPage}/>
 					<Route render={(props) => {
 						const {history: {push}} = props;
 						return (
 								<Layout>
+
+
 									<Header>
 										<Menu theme="dark" mode="horizontal">
 											<Menu.Item key="1">
@@ -58,20 +67,29 @@ class App extends PureComponent {
 											<Menu.Item key="3" onClick={() => push("/contact")}>Contact
 												{/*<NavLink to="/contact">Contact</NavLink>*/}
 											</Menu.Item>
+											<Menu.Item key="4">
+												<div className="logout" onClick={this.logOutUser}>LogOut</div>
+											</Menu.Item>
 										</Menu>
 									</Header>
+
+
+
+									<Content>
+										<Switch>
+										<PrivateRoute path="/" exact component={HomePage}/>
+										<PrivateRoute path="/word/:id?" component={CurrentWord}/>
+										<Route path="/about" render={() => <h1>About app...</h1>}/>
+										<Route path="/contact" render={() => <h1>Contact me...</h1>}/>
+										<Route render={() => "[404]: Page not found..."}/>
+										</Switch>
+									</Content>
+									<FooterBlock/>
 								</Layout>
+
 						)
 					}}/>
-
-					<PrivateRoute path="/" exact component={HomePage}/>
-					<Route path="/about" render={() => <h1>About app...</h1>}/>
-					<Route path="/contact" render={() => <h1>Contact me...</h1>}/>
-
-
-					{/*<div className="App">*/}
-					{/*{user ? <HomePage user={user}/> : <LoginPage/>}*/}
-					{/*</div>*/}
+					</Switch>
 				</BrowserRouter>
 		)
 	}

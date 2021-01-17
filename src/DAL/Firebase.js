@@ -27,8 +27,10 @@ class Firebase {
 	}
 	setUserId = (uId) => this.userId = uId;
 	logInUser = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
-	getUserCards = () => 	this.database.ref(`/cards/${this.userId}`)
-	setNewWordInDataBase = (newWordArr) => this.database.ref(`/cards/${this.userId}`)
+	loginOut = () => this.auth.signOut();
+	getUserCards = () => 	this.database.ref(`/cards/${this.userId}`);
+	// setNewWordInDataBase = (newWordArr) => this.database.ref(`/cards/${this.userId}`)
+	getUserCurrentPage = (id) => this.database.ref(`/cards/${this.userId}/${id}`)
 }
 
 

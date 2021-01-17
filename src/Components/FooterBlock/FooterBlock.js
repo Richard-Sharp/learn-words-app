@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Footer.module.css';
 
-const Footer = () => {
+const FooterBlock = () => {
     return (
         <footer className={s.root}>
             Made by #Richard Sharp
@@ -9,4 +9,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default FooterBlock;
