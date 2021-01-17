@@ -3,14 +3,16 @@ import 'firebase/auth';
 import 'firebase/database';
 
 const firebaseConfig = {
-	apiKey: "AIzaSyCMpzRb7pkPfmNtukXSdccrWBjlW66ITAQ",
-	authDomain: "marathon-test-39719.firebaseapp.com",
-	databaseURL: "https://marathon-test-39719-default-rtdb.firebaseio.com",
-	projectId: "marathon-test-39719",
-	storageBucket: "marathon-test-39719.appspot.com",
-	messagingSenderId: "11715353971",
-	appId: "1:11715353971:web:808be8fe57f3fba4fe7906"
+	apiKey: "AIzaSyCW483ZYwFAs8U2pOFDAjF6jVRzd5igItA",
+	authDomain: "learn-words-app-dbef2.firebaseapp.com",
+	databaseURL: "https://learn-words-app-dbef2-default-rtdb.firebaseio.com",
+	projectId: "learn-words-app-dbef2",
+	storageBucket: "learn-words-app-dbef2.appspot.com",
+	messagingSenderId: "933868855165",
+	appId: "1:933868855165:web:40f76f52aa89f0fbba7614"
 };
+
+
 
 
 class Firebase {

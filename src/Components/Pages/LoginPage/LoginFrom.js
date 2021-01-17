@@ -15,9 +15,11 @@ const tailLayout = {
 
 const onFinish = ({email, password}) => {
 	const { history } = props;
+
 	props.logInUser (email, password)
 			.then(res => {
-				console.log("###: user: ", res);
+				props.setUserId(res.user.uid);
+				localStorage.setItem('user', res.user.uid)
 				history.push("/")
 			})
 };

@@ -15,7 +15,9 @@ class LoginPage extends PureComponent {
 					<Layout>
 						<Content>
 							<div className={style.main}>
-								<LoginForm logInUser={this.context.logInUser} {...this.props}/>
+								<LoginForm logInUser={this.context.logInUser}
+													 setUserId={this.context.setUserId}
+													 {...this.props}/>
 							</div>
 						</Content>
 					</Layout>

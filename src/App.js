@@ -5,6 +5,7 @@ import LoginPage from './Components/Pages/LoginPage/LoginPage';
 import {Layout, Spin, Menu} from 'antd';
 import FirebaseContext from "./Context/FirebaseContext";
 import {BrowserRouter, Link, NavLink, Route} from "react-router-dom";
+import {PrivateRoute} from "./utils/privateRoute";
 
 const { Header } = Layout;
 
@@ -19,12 +20,14 @@ class App extends PureComponent {
 		auth.onAuthStateChanged((user) => {
 			if (user) {
 				setUserId(user.uid);
+				localStorage.setItem('user', JSON.stringify(user.uid));
 				this.setState({user});
 			} else {
 				setUserId(null);
+				localStorage.removeItem('user');
 				this.setState({user: false});
 			}
-		})
+		});
 	}
 
 	render() {
@@ -61,7 +64,7 @@ class App extends PureComponent {
 						)
 					}}/>
 
-					<Route path="/" exact component={HomePage}/>
+					<PrivateRoute path="/" exact component={HomePage}/>
 					<Route path="/about" render={() => <h1>About app...</h1>}/>
 					<Route path="/contact" render={() => <h1>Contact me...</h1>}/>
 
