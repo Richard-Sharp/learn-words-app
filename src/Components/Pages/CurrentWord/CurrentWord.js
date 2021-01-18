@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import style from "./CurrentWord.module.css";
 import Card from "../../CardList/Card/Card";
 import {Spin, Typography} from "antd";
-import FirebaseContext from "../../../Context/FirebaseContext";
+import FirebaseContext, {withFirebase} from "../../../Context/FirebaseContext";
 
 const {Title} = Typography;
 
@@ -15,10 +15,10 @@ class CurrentWord extends PureComponent {
 		}
 	};
 	componentDidMount() {
-		const { getUserCurrentPage } = this.context;
-		const { match: {params}} = this.props;
+		// const { getUserCurrentPage } = this.context;
+		const { firebase, match: {params}} = this.props;
 		if (params.id) {
-			getUserCurrentPage(params.id).once('value')
+			firebase.getUserCurrentPage(params.id).once('value')
 					.then(res => {
 						this.setState({
 							word: res.val()
@@ -44,5 +44,5 @@ render() {
 		);
 }
 }
-CurrentWord.contextType = FirebaseContext;
-export default CurrentWord;
+// CurrentWord.contextType = FirebaseContext;
+export default withFirebase(CurrentWord);

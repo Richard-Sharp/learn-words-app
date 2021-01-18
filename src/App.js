@@ -8,6 +8,7 @@ import {Link, Route, Switch} from "react-router-dom";
 import {PrivateRoute} from "./utils/privateRoute";
 import CurrentWord from "./Components/Pages/CurrentWord/CurrentWord";
 import FooterBlock from "./Components/FooterBlock/FooterBlock";
+import CounterPage from "./Components/Pages/CounterPage/CounterPage";
 
 const { Header, Content } = Layout;
 
@@ -64,8 +65,11 @@ class App extends PureComponent {
 											</Menu.Item>
 											<Menu.Item key="3" onClick={() => push("/contact")}>Contact
 												{/*<NavLink to="/contact">Contact</NavLink>*/}
-											</Menu.Item>
+									</Menu.Item>
 											<Menu.Item key="4">
+												<Link to='/counter'>Counter</Link>
+									</Menu.Item>
+											<Menu.Item key="5">
 												<div className="logout"
 														 onClick={this.logOutUser}>LogOut</div>
 											</Menu.Item>
@@ -77,6 +81,7 @@ class App extends PureComponent {
 										<PrivateRoute path="/" exact component={HomePage}/>
 										<PrivateRoute path="/home/:id?/:isDone?" component={HomePage}/>
 										<PrivateRoute path="/word/:id?" component={CurrentWord}/>
+										<PrivateRoute path="/counter" component={CounterPage}/>
 										<Route path="/about" render={() => <h1>About app...</h1>}/>
 										<Route path="/contact" render={() => <h1>Contact me...</h1>}/>
 										<Route render={() => "[404]: Page not found..."}/>
