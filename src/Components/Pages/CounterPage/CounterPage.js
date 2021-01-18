@@ -5,18 +5,15 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../../Redux/actions';
 import { connect } from 'react-redux';
 
-
 const {Title} = Typography;
 
 
 class CounterPage extends PureComponent {
 
 	componentDidMount() {
-
 	}
 
 	render() {
-
 		const { countNumber, plusAction, minusAction } = this.props;
 
 		return (
@@ -24,7 +21,6 @@ class CounterPage extends PureComponent {
 					<Title>
 						{countNumber}
 					</Title>
-
 						<Button onClick={() => plusAction(1)}>PLUS</Button>
 						<Button onClick={() => minusAction(1)}>MINUS</Button>
 				</div>
