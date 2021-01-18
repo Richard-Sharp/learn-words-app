@@ -10,11 +10,8 @@ import rootReducer from './Redux/reducers'
 import { createStore } from 'redux';
 import {Provider} from "react-redux";
 
-
-
 const store = new createStore(rootReducer);
 store.subscribe(() => console.log(store.getState()));
-
 
 ReactDOM.render(
 		<Provider store={store}>
