@@ -7,9 +7,7 @@ import { connect } from 'react-redux';
 
 const {Title} = Typography;
 
-
 class CounterPage extends PureComponent {
-
 	componentDidMount() {
 	}
 
@@ -31,10 +29,10 @@ const mapState = (state) => {
 	return {
 		countNumber: state.count
 	};
-}
+};
 
 const mapDispatch = (dispatch) => {
 	return bindActionCreators(actions, dispatch);
-}
+};
 
 export default connect(mapState, mapDispatch)(CounterPage);
