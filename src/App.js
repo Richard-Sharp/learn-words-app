@@ -17,9 +17,9 @@ const {Header, Content} = Layout;
 
 
 class App extends PureComponent {
-	state = {
-		user: null
-	};
+	// state = {
+	// 	user: null
+	// };
 
 	componentDidMount() {
 		const {auth, setUserId} = this.context;
@@ -29,11 +29,11 @@ class App extends PureComponent {
 				setUserId(user.uid);
 				localStorage.setItem('user', JSON.stringify(user.uid));
 				addUser(user);
-				this.setState({user});
+				// this.setState({user});
 			} else {
 				setUserId(null);
 				localStorage.removeItem('user');
-				this.setState({user: false});
+				// this.setState({user: false});
 			}
 		});
 	}
@@ -44,8 +44,9 @@ class App extends PureComponent {
 	};
 
 	render() {
-		const {user} = this.state;
-		if (user === null) {
+		// const {user} = this.state;
+		const {userId} = this.props;
+		if (userId === null) {
 			return (
 					<div className="spinner">
 						<Spin size="large"/>
@@ -116,11 +117,11 @@ const mapState = (state) => {
 	return {
 		userId: state.user.userId,
 	}
-}
+};
 const mapDispatch = (dispatch) => {
 	return bindActionCreators({
 		addUser: addUserAction,
 
 	}, dispatch);
-}
+};
 export default connect(mapState, mapDispatch)(App);
