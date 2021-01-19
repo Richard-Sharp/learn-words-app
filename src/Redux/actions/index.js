@@ -1,13 +1,15 @@
+import {MINUS, PLUS} from "./actionsTypes";
+
 export const plusAction = (amount) => {
 	return {
-		type: 'PLUS',
+		type: PLUS,
 		payload: amount
 	}
 }
 
 export const minusAction = (amount) => {
 	return {
-		type: 'MINUS',
+		type: MINUS,
 		payload: amount
 	}
 }

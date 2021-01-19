@@ -1,3 +1,5 @@
+import {ADD_USER} from "../actions/actionsTypes";
+
 const initialState = {
 	userId: '',
 	name: ''
@@ -5,7 +7,7 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'ADD_USER':
+		case ADD_USER:
 			return {
 				...state,
 				userId: action.user.uid,
