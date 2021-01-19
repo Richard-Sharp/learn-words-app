@@ -1,8 +1,8 @@
 import {ADD_USER} from "../actions/actionsTypes";
 
 const initialState = {
-	userId: '',
-	name: ''
+	userId: null,
+	email: null
 }
 
 const userReducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const userReducer = (state = initialState, action) => {
 			return {
 				...state,
 				userId: action.user.uid,
-				name: action.user.displayName
+				email: action.user.email
 			}
 		default:
 			return state;

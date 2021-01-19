@@ -37,6 +37,13 @@ class App extends PureComponent {
 			}
 		});
 	}
+	// componentDidUpdate(prevProps) {
+	// 	const {addUser, user} = this.props;
+	// 	if(prevProps !== this.props) {
+	// 	 addUser(user);
+	// 	}
+	// }
+
 
 	logOutUser = () => {
 		const {loginOut} = this.context;
@@ -45,6 +52,7 @@ class App extends PureComponent {
 
 	render() {
 		// const {user} = this.state;
+debugger
 		const {userId} = this.props;
 		if (userId === null) {
 			return (
@@ -116,12 +124,12 @@ App.contextType = FirebaseContext;
 const mapState = (state) => {
 	return {
 		userId: state.user.userId,
+		userEmail: state.user.email,
 	}
 };
 const mapDispatch = (dispatch) => {
 	return bindActionCreators({
 		addUser: addUserAction,
-
 	}, dispatch);
 };
 export default connect(mapState, mapDispatch)(App);

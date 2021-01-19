@@ -7,11 +7,13 @@ import Firebase from "./DAL/Firebase";
 import FirebaseContext from './Context/FirebaseContext';
 import {BrowserRouter} from "react-router-dom";
 import rootReducer from './Redux/reducers'
-import { createStore } from 'redux';
+import {applyMiddleware, createStore} from 'redux';
+import {logger} from "redux-logger/src";
 import {Provider} from "react-redux";
 
-const store = new createStore(rootReducer);
-store.subscribe(() => console.log(store.getState()));
+// const store = new createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+const store = new createStore(rootReducer, applyMiddleware(logger));
 
 ReactDOM.render(
 		<Provider store={store}>
