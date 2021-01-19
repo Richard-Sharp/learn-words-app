@@ -2,10 +2,9 @@ import React, {PureComponent} from "react";
 import style from "./CounterPage.module.css";
 import {Button, Typography} from "antd";
 import { bindActionCreators } from 'redux';
-import * as actions from '../../../Redux/actions';
 import { connect } from 'react-redux';
-import {plusAction} from "../../../Redux/actions";
-import {minusAction} from "../../../Redux/actions";
+import {minusAction, plusAction} from "../../../Redux/actions/counterAction";
+
 
 const {Title} = Typography;
 
