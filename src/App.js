@@ -52,7 +52,6 @@ class App extends PureComponent {
 
 	render() {
 		// const {user} = this.state;
-debugger
 		const {userId} = this.props;
 		if (userId === null) {
 			return (
