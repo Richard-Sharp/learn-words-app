@@ -3,13 +3,13 @@ const counterReducer = (state = {count: 0}, action) => {
 	switch (action.type) {
 		case 'PLUS':
 			return {
-					...state,
+				...state,
 				count: state.count + action.payload
 			}
 			break;
 		case 'MINUS':
 			return {
-					...state,
+				...state,
 				count: state.count - action.payload
 			}
 			break;
