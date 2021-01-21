@@ -5,9 +5,11 @@ import {Input} from 'antd';
 import getTranslateWord from "../../DAL/translateWord";
 import FirebaseContext from "../../Context/FirebaseContext";
 import {Spin} from 'antd';
-
+import {cardListAction, cardListRejectAction, cardListResolveAction} from "../../Redux/actions/cardListAction";
+import {bindActionCreators} from "redux";
 
 const {Search} = Input;
+
 
 class CardList extends PureComponent {
 	state = {
@@ -51,7 +53,6 @@ class CardList extends PureComponent {
 			wordTranslate: '',
 			label: ''
 		})
-
 	}
 
 	render() {
@@ -62,7 +63,6 @@ class CardList extends PureComponent {
 				<>
 					<div className={style.form}>
 						<h3>Найти в словаре:</h3>
-
 						<div className={style.searchWrap}>
 							<Search
 									placeholder="Введите слово"
@@ -106,4 +106,17 @@ class CardList extends PureComponent {
 
 CardList.contextType = FirebaseContext;
 
-export default CardList;
+const mapState = (state) =>	{
+	return state;
+}
+
+const mapDispatch = (dispatch) => {
+	return bindActionCreators({
+		fetchCardList: cardListAction,
+		fetchCardListResolve: cardListResolveAction,
+		fetchCardRejectList: cardListRejectAction,
+	}, dispatch)
+}
+
+
+export default connect(mapState, mapDispatch)(CardList);
