@@ -9,9 +9,9 @@ import {connect} from 'react-redux';
 
 
 class HomePage extends PureComponent {
-	state = {
-		wordArr: []
-	};
+	// state = {
+	// 	wordArr: []
+	// };
 
 	componentDidMount() {
 		const { getUserCards } = this.context;
@@ -25,9 +25,9 @@ class HomePage extends PureComponent {
 		// getUserCards().on('value', res => {
 		getUserCards().once('value').then(res => {
 			fetchCardListResolve(res.val());
-			this.setState({
-				wordArr: res.val()
-			});
+			// this.setState({
+			// 	wordArr: res.val()
+			// });
 		}).catch(err => {
 			fetchCardRejectList(err);
 		});
@@ -35,7 +35,7 @@ class HomePage extends PureComponent {
 
 	setNewWord = (rus, eng) => {
 		const { getUserCards } = this.context;
-		const { wordArr } = this.state;
+		const { wordArr } = this.props;
 		getUserCards().set([...wordArr, {
 			eng: rus,
 			id: +new Date(),
@@ -45,20 +45,22 @@ class HomePage extends PureComponent {
 
 	onDeletedItem = (id) => {
 		const { getUserCards } = this.context;
-		const { wordArr } = this.state;
+		const { wordArr } = this.props;
 		const newWordArr = wordArr.filter(el => el.id !== id);
 		getUserCards().set(newWordArr);
 	};
 
 	render() {
-		const {wordArr} = this.state;
+		const { wordArr, isBusy } = this.props;
 		return (
 				<>
 					<header className="headerWrap">
 						<HeaderBlock/>
 						<CardList wordsList={wordArr}
 											onDeletedItem={this.onDeletedItem}
-											setNewWord={this.setNewWord}/>
+											setNewWord={this.setNewWord}
+											isBusy={isBusy}
+						/>
 					</header>
 				</>
 		)
@@ -68,7 +70,10 @@ class HomePage extends PureComponent {
 HomePage.contextType = FirebaseContext;
 
 const mapState = (state) =>	{
-	return state;
+	return {
+		isBusy: state.cardList.isBusy,
+		wordArr: state.cardList.payload
+	};
 };
 
 const mapDispatch = (dispatch) => {

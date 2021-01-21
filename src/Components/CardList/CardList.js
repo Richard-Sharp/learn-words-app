@@ -54,9 +54,9 @@ class CardList extends PureComponent {
 	};
 
 	render() {
-		const {wordsList, onDeletedItem} = this.props;
+		const {wordsList, onDeletedItem, isBusy} = this.props;
 		const {inputValue, label, isLoading, wordTranslate} = this.state;
-
+debugger
 		return (
 				<>
 					<div className={style.form}>
@@ -86,7 +86,7 @@ class CardList extends PureComponent {
 					</div>
 
 					<div className={style.cover}>
-						{wordsList.length === 0
+						{isBusy || wordsList === null
 								? <div>
 									<Spin size="large"/>
 						</div>
