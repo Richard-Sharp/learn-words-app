@@ -8,12 +8,14 @@ import FirebaseContext from './Context/FirebaseContext';
 import {BrowserRouter} from "react-router-dom";
 import rootReducer from './Redux/reducers'
 import {applyMiddleware, createStore} from 'redux';
-import {logger} from "redux-logger/src";
+import {logger} from "redux-logger";
 import {Provider} from "react-redux";
+import thunkMiddleware from "redux-thunk";
+
 
 // const store = new createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-const store = new createStore(rootReducer, applyMiddleware(logger));
+const store = new createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(
 		<Provider store={store}>

@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import HeaderBlock from "../../HeaderBlock/HeaderBlock";
 import CardList from "../../CardList/CardList";
 import FirebaseContext from "../../../Context/FirebaseContext";
-import {cardListAction, cardListRejectAction, cardListResolveAction} from "../../../Redux/actions/cardListAction";
+import { fetchCardListTC } from "../../../Redux/actions/cardListAction";
 import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
 
@@ -15,22 +15,18 @@ class HomePage extends PureComponent {
 
 	componentDidMount() {
 		const { getUserCards } = this.context;
-		const {
-			fetchCardList,
-			fetchCardListResolve,
-			fetchCardRejectList,
-		} = this.props;
+		const { fetchCardList } = this.props;
 
-		fetchCardList();
-		// getUserCards().on('value', res => {
-		getUserCards().once('value').then(res => {
-			fetchCardListResolve(res.val());
-			// this.setState({
-			// 	wordArr: res.val()
-			// });
-		}).catch(err => {
-			fetchCardRejectList(err);
-		});
+		fetchCardList(getUserCards);
+		// // getUserCards().on('value', res => {
+		// getUserCards().once('value').then(res => {
+		// 	fetchCardListResolve(res.val());
+		// 	// this.setState({
+		// 	// 	wordArr: res.val()
+		// 	// });
+		// }).catch(err => {
+		// 	fetchCardRejectList(err);
+		// });
 	}
 
 	setNewWord = (rus, eng) => {
@@ -41,6 +37,7 @@ class HomePage extends PureComponent {
 			id: +new Date(),
 			rus: eng
 		}]);
+		this.props.fetchCardList(getUserCards);
 	};
 
 	onDeletedItem = (id) => {
@@ -48,6 +45,7 @@ class HomePage extends PureComponent {
 		const { wordArr } = this.props;
 		const newWordArr = wordArr.filter(el => el.id !== id);
 		getUserCards().set(newWordArr);
+		this.props.fetchCardList(getUserCards);
 	};
 
 	render() {
@@ -78,9 +76,7 @@ const mapState = (state) =>	{
 
 const mapDispatch = (dispatch) => {
 	return bindActionCreators({
-		fetchCardList: cardListAction,
-		fetchCardListResolve: cardListResolveAction,
-		fetchCardRejectList: cardListRejectAction,
+		fetchCardList: fetchCardListTC,
 	}, dispatch)
 };
 export default connect(mapState, mapDispatch)(HomePage);
