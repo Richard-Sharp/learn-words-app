@@ -5,8 +5,6 @@ import {Input} from 'antd';
 import getTranslateWord from "../../DAL/translateWord";
 import FirebaseContext from "../../Context/FirebaseContext";
 import {Spin} from 'antd';
-import {cardListAction, cardListRejectAction, cardListResolveAction} from "../../Redux/actions/cardListAction";
-import {bindActionCreators} from "redux";
 
 const {Search} = Input;
 
@@ -18,13 +16,13 @@ class CardList extends PureComponent {
 		isLoading: false,
 		inputWord: '',
 		wordTranslate: ''
-	}
+	};
 
 	onInputChange = (e) => {
 		this.setState({
 			inputValue: e.target.value
 		});
-	}
+	};
 
 	getTheWord = async () => {
 		const getWord = await getTranslateWord(this.state.inputValue);
@@ -37,13 +35,13 @@ class CardList extends PureComponent {
 				wordTranslate: getWord.translate
 			}
 		})
-	}
+	};
 
 	onSubmitForm = async () => {
 		this.setState({
 			isLoading: true
 		}, this.getTheWord)
-	}
+	};
 
 	onAddNewWord = () => {
 		const {inputWord, wordTranslate} = this.state;
@@ -53,7 +51,7 @@ class CardList extends PureComponent {
 			wordTranslate: '',
 			label: ''
 		})
-	}
+	};
 
 	render() {
 		const {wordsList, onDeletedItem} = this.props;
@@ -106,17 +104,4 @@ class CardList extends PureComponent {
 
 CardList.contextType = FirebaseContext;
 
-const mapState = (state) =>	{
-	return state;
-}
-
-const mapDispatch = (dispatch) => {
-	return bindActionCreators({
-		fetchCardList: cardListAction,
-		fetchCardListResolve: cardListResolveAction,
-		fetchCardRejectList: cardListRejectAction,
-	}, dispatch)
-}
-
-
-export default connect(mapState, mapDispatch)(CardList);
+export default CardList;

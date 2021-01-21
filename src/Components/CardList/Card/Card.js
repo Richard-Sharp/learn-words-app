@@ -12,13 +12,10 @@ class Card extends Component {
 	};
 
 	componentDidMount() {
-		console.log('card props', this.props);
 		const { match: {params}, index } = this.props;
 		if (index === +params.id) {
-			console.log('######');
 			this.setState({
 				done: params.isDone
-
 			})
 		}
 	}
@@ -29,7 +26,7 @@ class Card extends Component {
 				done: !done
 			};
 		});
-	}
+	};
 
 	onIsRememberedClick = () => {
 		this.setState((state) => {
@@ -38,11 +35,11 @@ class Card extends Component {
 			};
 		});
 		//используем в SetState функцию, потому то новое состояние заиситот предыдущего состояния стейта.
-	}
+	};
 
 	onDeletedClick = () => {
 		this.props.onDeleted();
-	}
+	};
 
 	render() {
 		const {eng, rus} = this.props;

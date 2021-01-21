@@ -2,6 +2,10 @@ import React, {PureComponent} from "react";
 import HeaderBlock from "../../HeaderBlock/HeaderBlock";
 import CardList from "../../CardList/CardList";
 import FirebaseContext from "../../../Context/FirebaseContext";
+import {cardListAction, cardListRejectAction, cardListResolveAction} from "../../../Redux/actions/cardListAction";
+import {bindActionCreators} from "redux";
+import {connect} from 'react-redux';
+
 
 
 class HomePage extends PureComponent {
@@ -11,10 +15,21 @@ class HomePage extends PureComponent {
 
 	componentDidMount() {
 		const { getUserCards } = this.context;
-		getUserCards().on('value', res => {
+		const {
+			fetchCardList,
+			fetchCardListResolve,
+			fetchCardRejectList,
+		} = this.props;
+
+		fetchCardList();
+		// getUserCards().on('value', res => {
+		getUserCards().once('value').then(res => {
+			fetchCardListResolve(res.val());
 			this.setState({
-				wordArr: res.val() || []
+				wordArr: res.val()
 			});
+		}).catch(err => {
+			fetchCardRejectList(err);
 		});
 	}
 
@@ -51,4 +66,16 @@ class HomePage extends PureComponent {
 }
 
 HomePage.contextType = FirebaseContext;
-export default HomePage;
+
+const mapState = (state) =>	{
+	return state;
+};
+
+const mapDispatch = (dispatch) => {
+	return bindActionCreators({
+		fetchCardList: cardListAction,
+		fetchCardListResolve: cardListResolveAction,
+		fetchCardRejectList: cardListRejectAction,
+	}, dispatch)
+};
+export default connect(mapState, mapDispatch)(HomePage);
